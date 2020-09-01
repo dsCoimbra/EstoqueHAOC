@@ -1,0 +1,102 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Nova Manutenção
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+    {{form.valid}}
+    {{form.value | json}}
+
+
+    <form #form="ngForm" novalidate>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Equipamento danificado</h3>
+                <a (click)="cancel()" class="btn btn-light btn-xs pull-right">Cancelar</a>
+                <button type="submit" class="btn btn-light btn-xs pull-right mr-md-3" [disabled]="!form.valid">Salvar</button>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <app-input label="Chamado Interno" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="internalRequest" ngModel required minlength="10">
+                    </app-input>
+                    <app-input label="Chamado Externo" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="externalRequest" ngModel>
+                    </app-input>
+                </div>
+
+                <div class="col-md-12">
+                    <app-input label="Data de Abertura" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="date" ngModel [ngModel]="today | date:'dd/MM/yyyy HH:mm'" required>
+                    </app-input>
+
+
+                    <app-input label="Empresa" classLabel="col-md-3" classInput="col-md-7">
+                        <select class="form-control" style="width: 80%" id="empresa" name="empresa" ngModel required>
+                            <option *ngFor="let empresa of empresas" [ngValue]="empresa.name">
+                              {{ empresa.name }}
+                            </option>
+                        </select>
+                    </app-input>
+
+
+
+                </div>
+                <div class="col-md-12">
+                    <app-input label="Patrimonio" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="heritage" ngModel required minlength="5" maxlength="6">
+                    </app-input>
+                    <app-input label="Equipamento" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="equipment" ngModel required minlength="3">
+                    </app-input>
+                </div>
+                <div class="col-md-12">
+                    <app-input label="Modelo" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="model" ngModel required minlength="3">
+                    </app-input>
+                    <app-input label="Serial Number" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="serialNumber" ngModel required minlength="8">
+                    </app-input>
+                </div>
+                <div class="col-md-12">
+                    <app-input label="Problema identificado" classLabel="col-md-12" classInput="col-md-12" styleConfig="margin-top: 40px">
+                        <textarea class="form-control" style="width: 90%; height: 100px;" ngModel name="problem" required minlength="2"></textarea>
+                    </app-input>
+                </div>
+                <div class="col-md-12">
+                    <app-input label="Algum equipamento foi emprestado?" classInput="col-md-2" styleConfig="margin-top: 0px;" classLabel="col-md-3">
+                        <input type="radio" name="loanEquipament" #loanEquipament ngModel value=1 > Sim
+                        <input type="radio" name="loanEquipament" #loanEquipament ngModel value=2 > Não
+                    </app-input>
+                </div>
+            </div>
+        </div>
+        <div class="box" *ngIf="loanEquipament.checked == true">
+            <div class="box-header with-border">
+                <h3 class="box-title">Equipamento de empréstimo</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <app-input label="Equipamento" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="loanHeritage" ngModel required minlength="8">
+                    </app-input>
+                    <app-input label="Modelo" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="loanModel" ngModel required minlength="3">
+                    </app-input>
+                </div>
+                <div class="col-md-12">
+                    <app-input label="Patrimonio" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="loanEquipment" ngModel required minlength="3">
+                    </app-input>
+                    <app-input label="Serial Number" classLabel="col-md-3" classInput="col-md-7">
+                        <input class="form-control" style="width: 80%" type="text" name="loanSerialNumber" ngModel required minlength="8">
+                    </app-input>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

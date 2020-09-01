@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-decoration: none !important;
+    outline: thin dotted !important;
+    outline: 0px auto -webkit-focus-ring-color !important;
+    outline-offset: 0px !important;
+
+}
+
+.navbar-static-top {
+  height: 50px !important;
+  position: relative!important;
+}
+
+.navbar{
+  position: relative!important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+.navbar a, .navbar .navbar-custom-menu{
+  margin-top: -10px
+}
+
+.navbar a{
+  height: 50px
+}

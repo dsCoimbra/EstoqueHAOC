@@ -1,0 +1,110 @@
+<header class="main-header">
+
+    <!-- Logo -->
+    <a href="" class="logo">
+      <span class="logo-mini"><img src="../../assets/img/logo-mini.png"></span>
+      <span class="logo-lg"><img src="../../assets/img/logo.png"></span>
+    </a>
+
+    <!-- Header Navbar -  -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+           <!-- Conta do usuário -->
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span>David Coimbra</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+                <img src="../../assets/img/avatar5.png" class="img-circle" alt="User Image">
+
+                <p>
+                  David Coimbra
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div>
+                <!-- /.row -->
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+
+      <!-- search form (Optional) -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">Menu</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li routerLinkActive="active"><a [routerLink] = "['/stock']"><i class="fa fa-desktop"></i> <span>Estoque</span></a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/requests']"><i class="fa fa-exclamation-circle"></i> <span>Solicitações</span></a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/maintenances']"><i class="fa fa-wrench"></i> <span>Manutenção</span></a></li>
+        <li class="treeview">
+          <a><i class="fa fa-lock"></i> <span>Administração</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li routerLinkActive="active"><a [routerLink]="['/admin/sectors']">Setores</a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/admin/categories']">Categorias</a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/admin/users']">Usuários</a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/admin/invoices']">Notas</a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/admin/providers']">Fornecedores</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>

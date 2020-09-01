@@ -1,0 +1,51 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Nova Requisição
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+    {{form.valid}}
+    {{form.value | json}}
+
+    <form #form="ngForm" novalidate>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Informações</h3>
+                <a href="#" class="btn btn-default btn-xs pull-right">Cancelar</a>
+                <button type="submit" class="btn btn-default btn-xs pull-right" [disabled]="!form.valid">Salvar</button>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <app-input label="Setores" >
+                        <select class="form-control" ngModel name="sector" style="width: 90%;">
+                            <option selected="selected">Financeiro</option>
+                            <option>Posto Enfermagem</option>
+                            <option>Auditoria</option>
+                            <option>Call Center</option>
+                            <option>Farmacia</option>
+                        </select>
+                    </app-input>                    
+                </div>
+                <div class="col-md-12">
+                    <app-input label="Chamado Interno">
+                        <input class="form-control" type="text" ngModel name="internalRequest" style="width: 90%;">
+                    </app-input>
+                </div>
+                <div class="col-md-12">
+                    <app-input label="Link do Chamado">
+                        <input class="form-control" type="text" ngModel name="linkRequest" style="width: 90%;">
+                    </app-input>
+                </div>
+                <div class="col-md-12" style="display: flex; ">
+                    <div class="form-group">
+                        <a class="btn btn-success btn-lg" style="margin-top: 5px; margin-bottom: 5px;" data-toggle="modal" data-target="#modal-default">Adicionar equipamento</a>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </form>
+</section>

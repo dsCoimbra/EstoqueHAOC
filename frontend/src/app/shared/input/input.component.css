@@ -1,0 +1,10 @@
+#div-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h6, i, h5 {
+  margin-top: 10px
+}
+

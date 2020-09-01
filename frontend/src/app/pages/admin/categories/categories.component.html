@@ -1,0 +1,33 @@
+<section class="content-header">
+  <h1>
+    Categorias<a href="./admin/category/new" class="btn btn-dark pull-right">Novo</a>
+  </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">Todas categorias</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body table-responsive-lg">
+      <table id="requests" class="table" width="100%">
+        <thead>
+          <tr>
+            <th data-priority="1">Id</th>
+            <th>Nome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let categories of categories$ | async">
+            <td>{{categories.id}}</td>
+            <td><a href="./admin/category/{{categories.id}}">{{categories.name}}</a></td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
