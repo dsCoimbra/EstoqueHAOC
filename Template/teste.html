@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<title>Teste</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<button  data-toggle="modal" data-target="#modal">Teste</button>
+	<div id="mensagem_ola">
+
+	</div>
+
+	<div class="modal" id="modal">
+	  <!-- campos etc -->
+	  <select name="teste" id="teste">
+	  	<option value="0">Teste 0</option>
+	  	<option value="1">Teste 1</option>
+	  	<option value="2">Teste 2</option>
+	  </select>
+	  <button id="btnEnviar">Enviar</button>
+	</div>
+</body>
+<!-- jQuery 3 -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+  $(function() {
+    $('#btnEnviar').click(function(){
+      $('#mensagem_ola').append('<p> Olá, '+$('#teste :selected').text()+("<p>"));
+      $('#modal').dialog("close");
+    });
+  });
+</script>
+</html>
+
+
+
+
+
+
+
