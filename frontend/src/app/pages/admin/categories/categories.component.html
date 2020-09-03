@@ -16,7 +16,10 @@
     <!-- /.box-header -->
     <div class="box-body table-responsive-lg">
       <table id="requests" class="table" width="100%">
-        <thead>
+        <caption class="text-center">
+          <pagination-controls previousLabel="Anterior" nextLabel="Próximo" responsive="true" (pageChange)="pag = $event"></pagination-controls>
+        </caption>
+        <thead class="thead-light">
           <tr>
             <th data-priority="1">Id</th>
             <th>Nome</th>
@@ -29,11 +32,6 @@
           </tr>
           <tr *ngIf="categories?.length === 0" >
             <td colspan="2"><h6 class="text-center">Nenhum dado encontrado</h6></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-center">
-              <pagination-controls previousLabel="Anterior" nextLabel="Próximo" responsive="true" (pageChange)="pag = $event"></pagination-controls>
-            </td>
           </tr>
         </tbody>
       </table>
