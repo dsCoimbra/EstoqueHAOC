@@ -11,6 +11,7 @@
   <div class="box">
     <div class="box-header">
       <h3 class="box-title">Todas categorias</h3>
+      <input type="text" class="pull-right form-control" style="width: 20%;" placeholder="Filtro" [formControl]="queryField">
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive-lg">
@@ -22,10 +23,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let categories of categories$ | async">
+          <tr *ngFor="let categories of categories">
             <td>{{categories.id}}</td>
             <td><a href="./admin/category/{{categories.id}}">{{categories.name}}</a></td>
+          </tr>
+          <tr *ngIf="categories?.length === 0" >
+            <td colspan="2"><h6 class="text-center">Nenhum dado encontrado</h6></td>
+          </tr>
         </tbody>
+
       </table>
     </div>
   </div>

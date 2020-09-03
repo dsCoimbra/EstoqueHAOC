@@ -15,7 +15,7 @@ const routes = express.Router();
 
 //Rotas
 //Categories
-routes.get('/categories', CategoryController.index)
+routes.get('/categories/:search?', CategoryController.index)
 routes.get('/categories/:id', CategoryController.category)
 routes.post('/category', CategoryController.create)
 routes.put('/category/:id', CategoryController.edit)

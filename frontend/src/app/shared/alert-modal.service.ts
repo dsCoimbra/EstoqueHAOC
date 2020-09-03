@@ -24,11 +24,11 @@ export class AlertModalService {
     }
   }
 
-  showAlertDanger(message: string): any{
-    this.showAlert(message, AlertTypes.DANGER);
+  showAlertDanger(message: string, time: number): any{
+    this.showAlert(message, AlertTypes.DANGER, time);
   }
 
-  showAlertSuccess(message: string, time: number): any{
+  showAlertSuccess({ message, time }: { message: string; time: number; }): any{
     this.showAlert(message, AlertTypes.SUCCESS, time);
   }
 

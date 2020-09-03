@@ -36,12 +36,19 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   onSubmit(): void{
-    this.categoryService.createCategory(this.categoryForm.value).subscribe(
+    this.categories = this.categoryService.createCategory(this.categoryForm.value).subscribe(
       success => {
-        this.modal.showAlertSuccess('Categoria criada com sucesso', 1500);
+        this.modal.showAlertSuccess({ message: 'Categoria criada com sucesso', time: 1500 });
         this.router.navigate(['admin/categories']);
       },
-      error => this.modal.showAlertDanger('Erro ao criar a categoria'),
+      error => {
+          if (error.status === 404){
+            this.modal.showAlertDanger('Servidor indisponivel no momento, favor tentar mais tarde.', 2000)
+          }
+          if (error.status === 304){
+            this.modal.showAlertDanger('Categoria já existe', 2000);
+          }
+      },
       () => console.log('request completo')
     );
   }

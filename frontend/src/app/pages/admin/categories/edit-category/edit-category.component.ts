@@ -57,10 +57,17 @@ export class EditCategoryComponent implements OnInit {
     this.categoriesService.editCategory(this.categoryForm.value).subscribe(
       success => {
         console.log(this.categoryForm.value);
-        this.modal.showAlertSuccess('Categoria atualizada com sucesso', 1500);
+        this.modal.showAlertSuccess({ message: 'Categoria atualizada com sucesso', time: 1500 });
         this.router.navigate(['admin/categories']);
       },
-      error => this.modal.showAlertDanger('Erro ao editar a categoria'),
+      error => {
+        if (error.status === 404){
+          this.modal.showAlertDanger('Servidor indisponivel no momento, favor tentar mais tarde.', 2000);
+        }
+        if (error.status === 304){
+          this.modal.showAlertDanger('Categoria já existe', 2000);
+        }
+    },
       () => console.log('request completo')
     );
   }
@@ -70,10 +77,10 @@ export class EditCategoryComponent implements OnInit {
     const id = this.route.snapshot.params[idparams];
     this.categoriesService.deleteCategory(id).subscribe(
       success => {
-        this.modal.showAlertSuccess('Categoria excluida com sucesso', 1500);
+        this.modal.showAlertSuccess({ message: 'Categoria excluida com sucesso', time: 1500 });
         this.router.navigate(['admin/categories']);
       },
-      error => this.modal.showAlertDanger('Erro ao excluir a categoria'),
+      error => this.modal.showAlertDanger('Erro ao excluir a categoria', 2000),
       () => console.log('request completo')
     );
     this.modalRef.hide();

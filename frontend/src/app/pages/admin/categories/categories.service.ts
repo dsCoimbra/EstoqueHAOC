@@ -14,8 +14,8 @@ export class CategoriesService {
 
     constructor(private http: HttpClient){}
 
-    categories(): any{
-        return this.http.get<Category[]>(`${this.API}categories`);
+    categories(search?: string): any{
+        return this.http.get<Category[]>(`${this.API}categories/${search}`);
     }
 
     categoryById(id: string): any{

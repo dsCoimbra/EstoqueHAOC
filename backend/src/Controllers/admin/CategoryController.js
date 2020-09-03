@@ -6,9 +6,24 @@ module.exports =  {
 
     async index(request, response){
 
-        const categories = await connection('tb_categories').select('id','name');
+        const {search} = request.params;  
+        
+        console.log(search)
 
-        return response.json( categories );
+        if(search){
+            const categories = await    connection('tb_categories')
+                                        .select('*')
+                                        .where('name','like',`%${search}%`)
+                                        .orWhere('id','like',`%${search}%`)
+
+            return response.json(categories);
+
+        }else{
+
+            const categories = await connection('tb_categories').select('*')
+
+            return response.json(categories);
+        }
 
     },
 
@@ -23,20 +38,20 @@ module.exports =  {
         return response.json(categories);
 
     }, 
-
+    
     /*--------------------------------------------------*/
 
     async create(request, response){
 
         const {name} = request.body;
 
-        const [value] = await connection("tb_categories").where('name',name).count();
+        const [value] = await connection("tb_categories").where('name','like',name).count();
 
         var [category] = "";
 
         if(value['count(*)'] > 0){
 
-            category = "Item ja existe";
+            return response.status(304).send('Categoria já existe')
 
         }else{
 
@@ -46,9 +61,11 @@ module.exports =  {
 
             category = await connection('tb_categories').select('*').where('id',id);
 
+            return response.json(category);
+
         }
 
-        return response.json({category});      
+              
     },
 
     /*--------------------------------------------------*/
@@ -65,7 +82,7 @@ module.exports =  {
 
         if(value["count(*)"] > 0){
 
-            category = "Categoria " + name + " ja existe"
+            return response.status(304).send('Categoria já existe')
 
         }else{
 
@@ -73,9 +90,11 @@ module.exports =  {
 
             category = await connection('tb_categories').select('*').where('id',id);
             
+            return response.json({category})
+            
         }
         
-        return response.json({category})
+        
     },
 
     /*--------------------------------------------------*/
