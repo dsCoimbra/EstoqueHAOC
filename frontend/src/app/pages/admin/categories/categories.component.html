@@ -11,7 +11,7 @@
   <div class="box">
     <div class="box-header">
       <h3 class="box-title">Todas categorias</h3>
-      <input type="text" class="pull-right form-control" style="width: 20%;" placeholder="Filtro" [formControl]="queryField">
+      <input type="text" class="pull-right form-control" style="width: 40%;" placeholder="Filtro" [formControl]="queryField">
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive-lg">
@@ -23,15 +23,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let categories of categories">
+          <tr *ngFor='let categories of categories | paginate: {itemsPerPage: contador, currentPage: pag}'>
             <td>{{categories.id}}</td>
             <td><a href="./admin/category/{{categories.id}}">{{categories.name}}</a></td>
           </tr>
           <tr *ngIf="categories?.length === 0" >
             <td colspan="2"><h6 class="text-center">Nenhum dado encontrado</h6></td>
           </tr>
+          <tr>
+            <td colspan="2" class="text-center">
+              <pagination-controls previousLabel="Anterior" nextLabel="Próximo" responsive="true" (pageChange)="pag = $event"></pagination-controls>
+            </td>
+          </tr>
         </tbody>
-
       </table>
     </div>
   </div>

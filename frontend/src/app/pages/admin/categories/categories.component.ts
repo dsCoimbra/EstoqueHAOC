@@ -27,6 +27,9 @@ export class CategoriesComponent implements OnInit {
   categories1$: Observable<Category[]>;
   error$ = new Subject<boolean>();
 
+  pag: Number = 1;
+  contador: Number = 10;
+
   queryField = new FormControl();
 
   private readonly API = `${environment.API}`;

@@ -37,9 +37,9 @@ import { ProvidersComponent } from './pages/admin/providers/providers.component'
 import { CreateProviderComponent } from './pages/admin/providers/create-provider/create-provider.component';
 import { EditProviderComponent } from './pages/admin/providers/edit-provider/edit-provider.component';
 import { InputComponent } from './shared/input/input.component';
-import { CategoriesService } from "./pages/admin/categories/categories.service";
+import { CategoriesService } from './pages/admin/categories/categories.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -82,7 +82,7 @@ import { SharedModule } from './shared/shared.module';
     RouterModule.forRoot(ROUTES, {onSameUrlNavigation: 'reload'}),
     FormsModule,
     ReactiveFormsModule,
-    NgxDatatableModule,
+    NgxPaginationModule,
     ModalModule.forRoot(),
     SharedModule
   ],
