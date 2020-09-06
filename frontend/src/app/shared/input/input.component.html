@@ -12,7 +12,7 @@
     <ng-content></ng-content>
 
     <span class="help-block" *ngIf="hasSuccess()" [style]="styleConfig"><i class="fa fa-check"></i></span>
-    <span class="help-block" *ngIf="hasError()" [style]="styleConfig"><i class="fa fa-remove"></i></span>
+    <span class="help-block" *ngIf="hasError()" [style]="styleConfig"><h6>{{errorMessage}}<i class="fa fa-remove"></i></h6></span>
 
 </div>
 

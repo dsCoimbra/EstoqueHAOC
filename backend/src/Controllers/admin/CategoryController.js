@@ -6,9 +6,7 @@ module.exports =  {
 
     async index(request, response){
 
-        const {search} = request.params;  
-        
-        console.log(search)
+        const {search} = request.params;
 
         if(search){
             const categories = await    connection('tb_categories')

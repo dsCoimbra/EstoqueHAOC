@@ -8,31 +8,31 @@ import {NgModel, FormControlName} from '@angular/forms'
 })
 export class InputComponent implements OnInit, AfterContentInit {
 
-  @Input() label: string
-  @Input() errorMessage: string
-  @Input() classLabel: string
-  @Input() classInput: string
-  @Input() styleConfig: string
+  @Input() label: string;
+  @Input() errorMessage: string;
+  @Input() classLabel: string;
+  @Input() classInput: string;
+  @Input() styleConfig: string;
 
-  input: any
+  input: any;
 
-  @ContentChild(NgModel) model: NgModel
-  @ContentChild(FormControlName) control: FormControlName
+  @ContentChild(NgModel) model: NgModel;
+  @ContentChild(FormControlName) control: FormControlName;
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void{
   }
 
-  ngAfterContentInit(){
-    this.input = this.model || this.control
-    if(this.input === undefined){
-      throw new Error("Esse componente precisa ser usado com a diretiva NgModel ")
+  ngAfterContentInit(): void{
+    this.input = this.model || this.control;
+    if (this.input === undefined){
+      throw new Error('Esse componente precisa ser usado com a diretiva NgModel ');
     }
   }
 
   loanEquipment(): boolean{
-    return this.input.value == "yes"
+    return this.input.value === 'yes';
   }
 
   hasSuccess(): boolean{

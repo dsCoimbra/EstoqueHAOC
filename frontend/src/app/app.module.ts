@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-import { ROUTES }  from "./app.routes";
+import { ROUTES } from './app.routes';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -41,6 +41,7 @@ import { CategoriesService } from './pages/admin/categories/categories.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from './shared/shared.module';
+import { SectorsService } from './pages/admin/sectors/sectors.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,10 @@ import { SharedModule } from './shared/shared.module';
     ModalModule.forRoot(),
     SharedModule
   ],
-  providers: [CategoriesService],
+  providers: [
+    CategoriesService,
+    SectorsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

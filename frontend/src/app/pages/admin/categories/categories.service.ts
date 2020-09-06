@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 
 import { Category } from './categories.model';
 
-import { take } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 
 @Injectable()

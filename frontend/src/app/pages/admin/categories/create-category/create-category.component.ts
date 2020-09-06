@@ -1,9 +1,8 @@
 import { Router } from '@angular/router';
 import { CategoriesService } from './../categories.service';
-import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { CategoriesComponent } from '../categories.component';
 import { AlertModalService } from '../../../../shared/alert-modal.service';
 import { Category } from '../categories.model';
 

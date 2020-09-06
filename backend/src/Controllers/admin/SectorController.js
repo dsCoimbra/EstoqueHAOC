@@ -3,16 +3,37 @@ const connection = require("../../database/connection")
 module.exports =  {
 
     async index(request,response){
-        const sectors = await connection('tb_sectors')
-                                .select('tb_sectors.name as Nome','tb_sectors.costcenter as `Centro de Custo`');
-        
-        return response.json(sectors)
+        const {search} = request.params;
 
+        if(search){
+
+            const sectors = await connection('tb_sectors')
+                                .select('*')
+                                .where('id','like',`%${search}%`)
+                                .orWhere('name','like',`%${search}%`)
+                                .orWhere('costCenter','like',`%${search}%`);
+        
+            return response.json(sectors)
+
+        }else{
+
+            const sectors = await connection('tb_sectors')
+                                .select('*')
+
+            return response.json(sectors)
+
+        }
     },
 
     /*--------------------------------------------------*/
 
     async sector(request, response){
+
+        const {id} = request.params;
+
+        const sectors = await connection('tb_sectors').select('name','costCenter').where('id',id);
+
+        response.json(sectors)
 
     },
 
@@ -32,7 +53,8 @@ module.exports =  {
         }else{
 
             const [id] = await connection('tb_sectors').insert({
-                name: name
+                name: name,
+                costCenter: costCenter
             })
             
             sector = await connection('tb_sectors').select('*').where('id',id)

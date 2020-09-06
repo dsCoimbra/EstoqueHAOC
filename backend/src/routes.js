@@ -36,10 +36,10 @@ routes.post('/provider/:id', ProviderController.edit)
 routes.delete('/provider/:id', ProviderController.delete)
 
 //Sectors
-routes.get('/sectors', SectorController.index)
+routes.get('/sectors/:search?', SectorController.index)
 routes.get('/sector/:id', SectorController.sector)
 routes.post('/sector', SectorController.create)
-routes.post('/sector/:id', SectorController.edit)
+routes.put('/sector/:id', SectorController.edit)
 routes.delete('/sector/:id', SectorController.delete)
 
 //Users

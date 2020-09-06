@@ -1,4 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, interval, Subject, empty } from 'rxjs';
+import { Location } from '@angular/common';
+import {Router} from '@angular/router';
+
+
+import { Sector } from './sectors.model';
+import { SectorsService } from './sectors.service';
+import { tap, map, filter, debounceTime, switchMap } from 'rxjs/operators';
+import { AlertModalService } from '../../../shared/alert-modal.service';
+import { FormControl, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 declare var $: any;
 
@@ -8,43 +20,36 @@ declare var $: any;
 })
 export class SectorsComponent implements OnInit {
 
-  constructor() { }
+  sectors: Sector[];
 
-  ngOnInit(): void {
+  sectors$: Observable<Sector[]>;
+
+  error$ = new Subject<boolean>();
+
+  // tslint:disable-next-line: ban-types
+  pag: Number = 1;
+  // tslint:disable-next-line: ban-types
+  contador: Number = 10;
+  queryField = new FormControl();
+
+  constructor(private sectorsService: SectorsService,
+              private alertService: AlertModalService) { }
+
+  ngOnInit(): any{
+    this.queryField.valueChanges
+      .pipe(
+        map(value => value.trim()),
+        debounceTime(200),
+        switchMap(value => this.sectorsService.sectors(value)),
+        tap(value => console.log(value)))
+      .subscribe((sectors: any) => this.sectors = sectors);
+
+    this.sectorsService.sectors('')
+      .subscribe((sectors: any) => this.sectors = sectors);
   }
 
-  ngAfterViewInit(){
-    $(function () {
-      $('#sectors').DataTable({
-        'responsive'  : true,
-        'columnDefs'  : [
-          { 'responsivePriority': 1, 'targets': 0 }
-      ],
-        'paging'      : true,
-        'lengthChange': true,
-        'searching'   : true,
-        'ordering'    : true,
-        'info'        : true,
-        'autoWidth'   : true,
-        'language'    : {
-          "paginate" : {
-            "first" : "Primeiro",
-            "last" : "Ultimo",
-            "next" : ">>",
-            "previous" : "<<"              
-          },
-          "info": "Mostrando página _PAGE_ até _PAGES_",
-          "search" : "Pesquisar",
-          "lengthMenu": 'Mostrar <select>'+
-                 '<option value="10">10</option>'+
-                 '<option value="15">15</option>'+
-                 '<option value="20">20</option>'+
-                 '<option value="35">35</option>'+
-                 '<option value="-1">Todos</option>'+
-                 '</select> Itens'
-        }
-      })
-    })
+  handleError(): any{
+    this.alertService.showAlertDanger('Erro ao carregar os dados. Tente novamente mais tarde.', 2000);
   }
 
 }

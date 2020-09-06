@@ -26,13 +26,12 @@ export class CategoriesComponent implements OnInit {
   categories$: Observable<Category[]>;
   categories1$: Observable<Category[]>;
   error$ = new Subject<boolean>();
-
+  // tslint:disable-next-line: ban-types
   pag: Number = 1;
+  // tslint:disable-next-line: ban-types
   contador: Number = 10;
 
   queryField = new FormControl();
-
-  private readonly API = `${environment.API}`;
 
 
   constructor(private categoriesService: CategoriesService,

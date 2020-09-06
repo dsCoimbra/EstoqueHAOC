@@ -1,1 +1,39 @@
-<p>edit-sector works!</p>
+<!-- Content Header (Page header) -->
+<section class="content-header" *ngFor="let sector of sector">
+  <h1>
+      {{sector.name}}
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+  <form [formGroup]="sectorForm" novalidate>
+      <div class="box">
+          <div class="box-header with-border">
+              <h3 class="box-title">Categoria</h3>
+              <a (click)="onCancel()" class="btn btn-outline-dark btn-xs pull-right">Cancelar</a>
+              <a (click)="onDelete()" class="btn btn-outline-danger btn-xs pull-right mr-md-3">Deletar</a>
+              <button type="submit" class="btn btn-outline-info btn-xs pull-right mr-md-3" [disabled]="!sectorForm.valid" (click)="onUpdate()">Salvar</button>
+          </div>
+          <div class="box-body">
+              <div class="col-md-12" *ngFor="let sector of sector">
+                  <app-input label="Nome" classLabel="col-md-1" classInput="col-md-7" errorMessage="Campo Obrigatório. No minimo 3 caracteres.">
+                      <input class="form-control" style="width: 60%" type="text" formControlName="name" [ngModel]='sector.name'>
+                  </app-input>
+                  <app-input label="Centro de Custo" classLabel="col-md-1" classInput="col-md-7" errorMessage="Campo obrigatório. Somente números com 5 caracteres.">
+                    <input class="form-control" style="width: 60%" type="text" formControlName="costCenter" [ngModel]='sector.costCenter'>
+                </app-input>
+              </div>
+          </div>
+      </div>
+  </form>
+
+  <ng-template #deleteModal>
+    <div class="modal-body text-center">
+      <p>Deseja mesmo deletar essa categoria?</p>
+      <button class="btn btn-info mr-md-3" (click)="confirm()">Sim</button>
+      <button class="btn btn-dark" (click)='decline()'>Não</button>
+    </div>
+  </ng-template>
+</section>
