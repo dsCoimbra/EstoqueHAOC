@@ -40,19 +40,15 @@ export class EditProviderComponent implements OnInit {
     console.log(this.provider);
     const idparams = 'id';
     const id = this.route.snapshot.params[idparams];
+    this.providerForm = this.fb.group({
+      id: [id],
+      name: [null, [Validators.required, Validators.minLength(3)]],
+      services: [null, Validators.required]
+    });
     this.providersService.providerById(id)
       .subscribe(provider => {
         this.provider = provider;
-        this.loadForm(provider);
       });
-  }
-
-  loadForm(provider: Provider): any{
-    this.providerForm = this.fb.group({
-      id: [provider.id],
-      name: [provider.name, [Validators.required, Validators.minLength(3)]],
-      service: [provider.service]
-    });
   }
 
   onCancel(): any {

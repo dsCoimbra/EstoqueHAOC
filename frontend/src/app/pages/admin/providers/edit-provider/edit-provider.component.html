@@ -17,14 +17,14 @@
           </div>
           <div class="box-body" *ngFor="let provider of provider">
               <div class="col-md-12">
-                  <app-input label="Nome" classLabel="col-md-1" classInput="col-md-7">
+                  <app-input label="Nome" classLabel="col-md-2" classInput="col-md-7">
                       <input class="form-control" style="width: 80%" type="text" formControlName="name" [ngModel]='provider.name' required minlength="3">
                   </app-input>
                   <app-input label="Tipos de serviços" classLabel="col-md-2" classInput="col-md-7">
                     <select class="form-control" style="width:80%" formControlName="services">
-                      <option [ngValue]=1>Material</option>
-                      <option [ngValue]=2>Manutenção</option>
-                      <option [ngValue]=3>Material e Manutenção</option>
+                      <option value="1" [selected]="provider.services === '1'">Material</option>
+                      <option value="2" [selected]="provider.services === '2'">Manutenção</option>
+                      <option value="3" [selected]="provider.services === '3'">Material e Manutenção</option>
                     </select>
                   </app-input>
               </div>

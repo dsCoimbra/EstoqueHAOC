@@ -36,7 +36,7 @@ module.exports = {
         const providers = await connection('tb_providers')
                                     .select(
                                         "name",
-                                        connection.raw("CASE WHEN services = '1' THEN 'Material' WHEN services = '2' THEN 'Manutenção' ELSE 'Material e Manutenção' END AS servicos"))
+                                        "services")
                                     .where('id',id);
         
         return response.json(providers);
@@ -81,14 +81,18 @@ module.exports = {
         const {name, services} = request.body;
         const {id} = request.params;
 
-        response.json({ name })
-
-        const providers = await connection('tb_providers')
-                                    .update({'name':name},{'services':services})
+        await connection('tb_providers')
+                                    .update({
+                                            name :name,
+                                            services: services})
+                                    .where('id',id);
+        
+        const [providers] = await connection('tb_providers')
+                                    .select('*')
                                     .where('id',id)
 
 
-        return response.json(providers)
+        return response.json({providers})
 
     },
 
