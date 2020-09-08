@@ -42,6 +42,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from './shared/shared.module';
 import { SectorsService } from './pages/admin/sectors/sectors.service';
+import { ProvidersService } from './pages/admin/providers/providers.service';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { SectorsService } from './pages/admin/sectors/sectors.service';
   ],
   providers: [
     CategoriesService,
-    SectorsService
+    SectorsService,
+    ProvidersService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,1 +1,42 @@
-<p>edit-provider works!</p>
+<!-- Content Header (Page header) -->
+<section class="content-header" *ngFor="let provider of provider">
+  <h1>
+      {{provider.name}}
+  </h1>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+
+  <form [formGroup]="providerForm" novalidate>
+      <div class="box">
+          <div class="box-header with-border">
+              <h3 class="box-title">Categoria</h3>
+              <a (click)="onCancel()" class="btn btn-outline-dark btn-xs pull-right">Cancelar</a>
+              <a (click)="onDelete()" class="btn btn-outline-danger btn-xs pull-right mr-md-3">Deletar</a>
+              <button type="submit" class="btn btn-outline-info btn-xs pull-right mr-md-3" [disabled]="!providerForm.valid" (click)="onUpdate()">Salvar</button>
+          </div>
+          <div class="box-body" *ngFor="let provider of provider">
+              <div class="col-md-12">
+                  <app-input label="Nome" classLabel="col-md-1" classInput="col-md-7">
+                      <input class="form-control" style="width: 80%" type="text" formControlName="name" [ngModel]='provider.name' required minlength="3">
+                  </app-input>
+                  <app-input label="Tipos de serviços" classLabel="col-md-2" classInput="col-md-7">
+                    <select class="form-control" style="width:80%" formControlName="services">
+                      <option [ngValue]=1>Material</option>
+                      <option [ngValue]=2>Manutenção</option>
+                      <option [ngValue]=3>Material e Manutenção</option>
+                    </select>
+                  </app-input>
+              </div>
+          </div>
+      </div>
+  </form>
+
+  <ng-template #deleteModal>
+    <div class="modal-body text-center">
+      <p>Deseja mesmo deletar essa categoria?</p>
+      <button class="btn btn-info mr-md-3" (click)="confirm()">Sim</button>
+      <button class="btn btn-dark" (click)='decline()'>Não</button>
+    </div>
+  </ng-template>
+</section>

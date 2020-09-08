@@ -1,33 +1,41 @@
 <section class="content-header">
-    <h1>
-      Fornecedores<a href="#" class="btn btn-default pull-right">Novo</a>
-    </h1>
-  
-  </section>
-  
-  <!-- Main content -->
-  <section class="content container-fluid">
-  
-    <div class="box">
-      <div class="box-header">
-        <h3 class="box-title">Todos fornecedores</h3>
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-        <table id="providers" class="display nowrap" width="100%">
-          <thead>
-            <tr>
-              <th data-priority="1">Nome</th>
-              <th>Tipo(s) de serviço(s)</th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr><td><a href='#'>WA</a></td><td>Material - Manutenção</td></tr>
-              <tr><td><a href='#'>Santana</a></td><td>Material</td></tr>
-          </tbody>
-        </table>
-      </div>
+  <h1>
+    Forncedores<a href="./admin/provider/new" class="btn btn-dark pull-right">Novo</a>
+  </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">Todas categorias</h3>
+      <input type="text" class="pull-right form-control" style="width: 40%;" placeholder="Filtro" [formControl]="queryField">
     </div>
-  
-  
-  </section>
+    <!-- /.box-header -->
+    <div class="box-body table-responsive-lg">
+      <table id="requests" class="table" width="100%">
+        <caption class="text-center">
+          <pagination-controls previousLabel="Anterior" nextLabel="Próximo" responsive="true" (pageChange)="pag = $event"></pagination-controls>
+        </caption>
+        <thead class="thead-light">
+          <tr>
+            <th>Nome</th>
+            <th>Serviços</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let providers of providers | paginate: {itemsPerPage: contador, currentPage: pag}'>
+            <td><a href="./admin/provider/{{providers.id}}">{{providers.name}}</a></td>
+            <td>{{providers.servicos}}</td>
+          </tr>
+          <tr *ngIf="providers?.length === 0" >
+            <td colspan="2"><h6 class="text-center">Nenhum dado encontrado</h6></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>

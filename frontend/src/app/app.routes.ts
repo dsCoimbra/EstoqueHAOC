@@ -19,6 +19,7 @@ import { CreateProviderComponent } from './pages/admin/providers/create-provider
 import { CreateSectorComponent } from './pages/admin/sectors/create-sector/create-sector.component';
 import { CreateUsersComponent } from './pages/admin/users/create-users/create-users.component'
 import { EditCategoryComponent } from './pages/admin/categories/edit-category/edit-category.component'
+import { EditProviderComponent } from './pages/admin/providers/edit-provider/edit-provider.component';
 
 export const ROUTES: Routes = [
     {path: '', component: HomeComponent},
@@ -39,4 +40,5 @@ export const ROUTES: Routes = [
     {path: 'admin/user/new', component: CreateUsersComponent},
     {path: 'admin/providers', component: ProvidersComponent},
     {path: 'admin/provider/new', component: CreateProviderComponent},
+    {path: 'admin/provider/:id', component: EditProviderComponent}
 ]

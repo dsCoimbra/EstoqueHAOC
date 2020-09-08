@@ -1,16 +1,12 @@
-import { Component, OnInit, Input, HostListener, OnDestroy } from '@angular/core';
-import { Observable, interval, Subject, empty } from 'rxjs';
-import { Location } from '@angular/common';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 
 import { Category } from './categories.model';
 import { CategoriesService } from './categories.service';
-import { catchError, tap, map, filter, distinct, distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
+import { tap, map, debounceTime, switchMap } from 'rxjs/operators';
 import { AlertModalService } from '../../../shared/alert-modal.service';
-import { FormControl, FormBuilder } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { FormControl } from '@angular/forms';
 
 declare var $: any;
 
@@ -35,11 +31,7 @@ export class CategoriesComponent implements OnInit {
 
 
   constructor(private categoriesService: CategoriesService,
-              private location: Location,
-              private router: Router,
-              private alertService: AlertModalService,
-              private fb: FormBuilder,
-              private http: HttpClient) {}
+              private alertService: AlertModalService) {}
 
   ngOnInit(): any{
     this.queryField.valueChanges

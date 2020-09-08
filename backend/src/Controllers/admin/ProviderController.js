@@ -3,23 +3,50 @@ const connection = require("../../database/connection");
 module.exports = {
 
     async index(request, response){
-        const providers = await connection('tb_providers')
-                                    .select('tb_providers.name as Fornecedor','tb_providers.id as ID');        
-        
-        return response.json(providers)
+        const {search} = request.params;
+
+        if (search){
+            const providers = await connection('tb_providers')
+                                .select(
+                                    "id",
+                                    "name",
+                                    connection.raw("CASE WHEN services = '1' THEN 'Material' WHEN services = '2' THEN 'Manutenção' ELSE 'Material e Manutenção' END AS servicos"))
+                                .where('name','like',`%${search}%`)
+                                .orWhere('servicos','like',`%${search}%`);
+            
+            return response.json(providers);
+        }else{
+
+            const providers = await connection('tb_providers')
+                                    .select(
+                                        "id",
+                                        "name",
+                                        connection.raw("CASE WHEN services = '1' THEN 'Material' WHEN services = '2' THEN 'Manutenção' ELSE 'Material e Manutenção' END AS servicos"));
+            
+            return response.json(providers)
+        }
     },
 
     /*--------------------------------------------------*/
 
     async provider(request, response){
 
+        const {id} = request.params;
+
+        const providers = await connection('tb_providers')
+                                    .select(
+                                        "name",
+                                        connection.raw("CASE WHEN services = '1' THEN 'Material' WHEN services = '2' THEN 'Manutenção' ELSE 'Material e Manutenção' END AS servicos"))
+                                    .where('id',id);
+        
+        return response.json(providers);
     },
 
     /*--------------------------------------------------*/
 
     async create(request, response){
 
-        const {name, idService} = request.body;
+        const {name, services} = request.body;
 
         const [value] = await connection("tb_providers").where('name', name).count();
 
@@ -29,49 +56,39 @@ module.exports = {
 
         if(value['count(*)'] > 0){
 
-            provider = "Item ja existe"
+            return response.status(304).send('Categoria já existe')
 
         }else{
 
-            const [idProvider] = await connection('tb_providers').insert({
-                name
-            });
-    
-            await connection('tb_services_provider_has_provider').insert({
-                idProvider,
-                idService
-            })
-    
-            provider = await connection('tb_providers')
-                                        .innerJoin('tb_services_provider_has_provider','tb_providers.id','tb_services_provider_has_provider.idProvider')
-                                        .innerJoin('tb_services_provider','tb_services_provider_has_provider.idService','tb_services_provider.id')
-                                        .select('tb_providers.name as Fornecedor','tb_services_provider.name as Material')
-                                        .where('tb_providers.id',idProvider)
+            const [id] = await connection('tb_providers')
+                .insert({
+                    'name':name, 
+                    'services':services
+                });
+            
+            provider = await connection('tb_providers').select('*').where('id',id)
 
+            return response.json({ provider })
         }
         
-        return response.json({ provider })
+       
     },
 
     /*--------------------------------------------------*/
 
     async edit(request, response){
 
-        const {name} = request.body;
+        const {name, services} = request.body;
         const {id} = request.params;
-
-        connection('tb_providers').where('id', id).update({'name': name})
 
         response.json({ name })
 
-        const [providers] = await connection('tb_providers')
-                                    .innerJoin('tb_services_provider_has_provider','tb_providers.id','tb_services_provider_has_provider.idProvider')
-                                    .innerJoin('tb_services_provider','tb_services_provider_has_provider.idService','tb_services_provider.id')
-                                    .select('tb_providers.name as Fornecedor','tb_services_provider.name as Material')
-                                    .where('tb_providers.id',id)
+        const providers = await connection('tb_providers')
+                                    .update({'name':name},{'services':services})
+                                    .where('id',id)
 
 
-        return response.json({ providers })
+        return response.json(providers)
 
     },
 
