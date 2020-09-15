@@ -7,8 +7,6 @@
 <!-- Main content -->
 <section class="content container-fluid">
 
-  {{ providerForm.value | json}}
-
   <form [formGroup]="providerForm" novalidate>
       <div class="box">
           <div class="box-header with-border">
@@ -19,7 +17,7 @@
           <div class="box-body">
               <div class="col-md-12">
                   <app-input label="Nome" classLabel="col-md-2" classInput="col-md-7">
-                      <input class="form-control" formControlName="name" style="width:80%" type="text">
+                      <input class="form-control" style="width:80%" type="text" formControlName="name">
                   </app-input>
 
                   <app-input label="Tipos de serviços" classLabel="col-md-2" classInput="col-md-7">

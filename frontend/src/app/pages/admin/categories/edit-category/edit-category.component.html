@@ -17,8 +17,8 @@
                 <button type="submit" class="btn btn-outline-info btn-xs pull-right mr-md-3" [disabled]="!categoryForm.valid" (click)="onUpdate()">Salvar</button>
             </div>
             <div class="box-body">
-                <div class="col-md-12">
-                    <app-input label="Nome" classLabel="col-md-1" classInput="col-md-7" *ngFor="let category of category">
+                <div class="col-md-12"  *ngFor="let category of category">
+                    <app-input label="Nome" classLabel="col-md-1" classInput="col-md-7">
                         <input class="form-control" style="width: 80%" type="text" formControlName="name" name="name" [ngModel]='category.name' required minlength="3">
                     </app-input>
                 </div>

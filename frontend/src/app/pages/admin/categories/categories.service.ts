@@ -18,7 +18,7 @@ export class CategoriesService {
     }
 
     categoryById(id: string): any{
-        return this.http.get<Category>(`${this.API}categories/${id}`);
+        return this.http.get<Category>(`${this.API}category/${id}`);
     }
 
     createCategory(category: any): any{

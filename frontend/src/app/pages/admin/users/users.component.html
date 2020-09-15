@@ -1,21 +1,25 @@
 <section class="content-header">
     <h1>
-      Usuários<a href="/admin/user/new" class="btn btn-default pull-right">Novo</a>
+      Usuários<a href="/admin/user/new" class="btn btn-dark pull-right">Novo</a>
     </h1>
-  
+
   </section>
-  
+
   <!-- Main content -->
   <section class="content container-fluid">
-  
+
     <div class="box">
       <div class="box-header">
         <h3 class="box-title">Todos usuários</h3>
+        <input type="text" class="pull-right form-control" style="width: 40%;" placeholder="Filtro" [formControl]="queryField">
       </div>
       <!-- /.box-header -->
-      <div class="box-body">
-        <table id="users" class="display nowrap" width="100%">
-          <thead>
+      <div class="box-body table-responsive-lg">
+        <table id="users" class="table" width="100%">
+          <caption class="text-center">
+            <pagination-controls previousLabel="Anterior" nextLabel="Próximo" responsive="true" (pageChange)="pag = $event"></pagination-controls>
+          </caption>
+          <thead class="thead-light">
             <tr>
               <th data-priority="1">Nome</th>
               <th>Email</th>
@@ -24,17 +28,20 @@
             </tr>
           </thead>
           <tbody>
-              <tr><td><a href='#'>Bruno Marques</a></td><td>brmarques@haoc.com.br</td><td>Administrador</td><td>Aprovado</td></tr>
-              <tr><td><a href='#'>David Coimbra</a></td><td>dcoimbra@haoc.com.br</td><td>Comum</td><td><button class="btn btn-success">Aprovar</button> <button class="btn btn-danger" style="margin-left: 5px">Recusar</button></td></tr>
-              <tr><td><a href='#'>Josué Oliveira</a></td><td>jossilva@haoc.com.br</td><td>Comum</td><td><button class="btn btn-success">Aprovar</button> <button class="btn btn-danger" style="margin-left: 5px">Recusar</button></td></tr>
-              <tr><td><a href='#'>Lucas Matheus</a></td><td>lmssilva@haoc.com.br</td><td>Comum</td><td><button class="btn btn-success">Aprovar</button> <button class="btn btn-danger" style="margin-left: 5px">Recusar</button></td></tr>
-              <tr><td><a href='#'>Peterson Ananias</a></td><td>pananias@haoc.com.br</td><td>Comum</td><td><button class="btn btn-success">Aprovar</button> <button class="btn btn-danger" style="margin-left: 5px">Recusar</button></td></tr>              
-              <tr><td><a href='#'>Juliana Aparecida</a></td><td>jprado@haoc.com.br</td><td>Comum</td><td><button class="btn btn-success">Aprovar</button> <button class="btn btn-danger" style="margin-left: 5px">Recusar</button></td></tr>
-              <tr><td><a href='#'>Guilherme Gomes</a></td><td>gsgomes@haoc.com.br</td><td>Administrador</td><td><button class="btn btn-success">Aprovar</button> <button class="btn btn-danger" style="margin-left: 5px">Recusar</button></td></tr>    
+            <tr *ngFor='let users of users | paginate: {itemsPerPage: contador, currentPage: pag}'>
+              <td><a href="./admin/user/{{users.id}}">{{users.name}}</a></td>
+              <td>{{users.email}}</td>
+              <td>{{users.typeUser}}</td>
+              <td *ngIf="users.aproved == 0"><button class="btn btn-success mr-md-3" (onClick)="aproved(users.id)">Aprovar</button> <button class="btn btn-danger" (onClick)="notAproved(users.id)">Não Aprovar</button></td>
+              <td *ngIf="users.aproved == 1">Aprovado</td>
+            </tr>
+            <tr *ngIf="users?.length === 0" >
+              <td colspan="4"><h6 class="text-center">Nenhum dado encontrado</h6></td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
-  
-  
+
+
   </section>

@@ -8,31 +8,27 @@
 <!-- Main content -->
 <section class="content container-fluid">
 
-    {{form.valid}}
-    {{form.value | json}}
-    
-
-    <form #form="ngForm" novalidate>
+    <form [formGroup]="userForm" novalidate>
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Usuário</h3>
-                <a (click)="cancel()" class="btn btn-default btn-xs pull-right">Cancelar</a>
-                <button type="submit" class="btn btn-default btn-xs pull-right" [disabled]="!form.valid">Salvar</button>
+                <a (click)="onCancel()" class="btn btn-light btn-xs pull-right">Cancelar</a>
+                <button (click)="onSubmit()" type="submit" class="btn btn-default btn-xs pull-right" [disabled]="!userForm.valid">Salvar</button>
             </div>
             <div class="box-body">
                 <div class="col-md-12">
-                    <app-input label="Nome" classLabel="col-md-1" classInput="col-md-11">
-                        <input class="form-control" style="width: 60%" type="text" name="name" ngModel required minlength="3">
+                    <app-input label="Nome" classLabel="col-md-3" classInput="col-md-9">
+                        <input class="form-control" style="width: 80%" type="text" formControlName="name">
                     </app-input>
-                    <app-input label="E-mail" classLabel="col-md-1" classInput="col-md-11">
-                        <input class="form-control" style="width: 60%" type="email" name="email" ngModel required minlength="3">
+                    <app-input label="E-mail" classLabel="col-md-3" classInput="col-md-9">
+                        <input class="form-control" style="width: 80%" type="email" formControlName="email">
                     </app-input>
-                    <app-input label="Tipo de Usuário" classLabel="col-md-1" classInput="col-md-11">
-                        <select class="form-control" style="width: 60%" id="empresa" name="empresa" ngModel required>
-                            <option *ngFor="let user of users" [ngValue]="user.name">
-                                {{user.name}}
-                            </option>
-                        </select>
+                    <app-input label="Tipos de serviços" classLabel="col-md-3" classInput="col-md-9">
+                      <select class="form-control" style="width:80%" formControlName="typeUser">
+                        <option [ngValue]=0>-- Selecione --</option>
+                        <option [ngValue]=1>Administrador</option>
+                        <option [ngValue]=2>Comum</option>
+                      </select>
                     </app-input>
                 </div>
             </div>

@@ -43,7 +43,7 @@ export class CreateProviderComponent implements OnInit {
       },
       error => {
           if (error.status === 404){
-            this.modal.showAlertDanger('Servidor indisponivel no momento, favor tentar mais tarde.', 2000)
+            this.modal.showAlertDanger('Servidor indisponivel no momento, favor tentar mais tarde.', 2000);
           }
           if (error.status === 304){
             this.modal.showAlertDanger('Forncedor já existe', 2000);

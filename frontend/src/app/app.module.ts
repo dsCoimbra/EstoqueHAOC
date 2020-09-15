@@ -1,3 +1,4 @@
+import { UsersService } from './pages/admin/users/users.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -91,7 +92,8 @@ import { ProvidersService } from './pages/admin/providers/providers.service';
   providers: [
     CategoriesService,
     SectorsService,
-    ProvidersService
+    ProvidersService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })
