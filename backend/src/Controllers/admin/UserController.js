@@ -7,15 +7,15 @@ module.exports =  {
 
         if(search) {
             const users = await connection('tb_users')
-                                    .select('id','name','email','aproved',connection.raw("CASE WHEN typeUser = 1 THEN 'Administrador' WHEN typeUser = 2 THEN 'Comum' ELSE 'Tipo não definido'  END AS typeUser"))
+                                    .select('id','name','email','aproved','typeUser',connection.raw("CASE WHEN typeUser = 1 THEN 'Administrador' WHEN typeUser = 2 THEN 'Comum' ELSE 'Tipo não definido' END AS typesUser"))
                                     .where('name','like',`%${search}%`)
                                     .orWhere('email','like',`%${search}%`)
-                                    .orWhere('typeUser','like',`%${search}%`);
+                                    .orWhere('typesUser','like',`%${search}%`);
 
             return response.json(users)
         }else{
             const users = await connection('tb_users')
-                                    .select('id','name','email','aproved',connection.raw("CASE WHEN typeUser = 1 THEN 'Administrador' WHEN typeUser = 2 THEN 'Comum' ELSE 'Tipo não definido'  END AS typeUser"));
+                                    .select('id','name','email','aproved','typeUser',connection.raw("CASE WHEN typeUser = 1 THEN 'Administrador' WHEN typeUser = 2 THEN 'Comum' ELSE 'Tipo não definido'  END AS typesUser"));
                                     
             return response.json(users)
         }
@@ -28,7 +28,7 @@ module.exports =  {
 
         const {id} = request.params;
 
-        const users = await connection('tb_users').select('id','name','email','aproved',connection.raw("CASE WHEN typeUser = 1 THEN 'Administrador' WHEN typeUser = 2 THEN 'Comum' ELSE 'Tipo não definido'  END AS typeUser"))
+        const users = await connection('tb_users').select('id','name','email','aproved','typeUser',connection.raw("CASE WHEN typeUser = 1 THEN 'Administrador' WHEN typeUser = 2 THEN 'Comum' ELSE 'Tipo não definido'  END AS typesUser"))
                                                     .where('id',id);
 
         return response.json(users);
@@ -66,7 +66,7 @@ module.exports =  {
                                                         'name',
                                                         'email',
                                                         'aproved',
-                                                        connection.raw("CASE WHEN typeUser = 1 THEN 'Administrador' WHEN typeUser = 2 THEN 'Comum' ELSE 'Tipo não definido' END AS typeUser"))
+                                                        connection.raw("CASE WHEN typeUser = 1 THEN 'Administrador' WHEN typeUser = 2 THEN 'Comum' ELSE 'Tipo não definido' END AS typesUser"))
                                                 .where('id',id);
 
             return response.json(user);
@@ -105,9 +105,33 @@ module.exports =  {
 
         const {id} = request.params;
         
-        await connection('tb_users').where('id', id).delete({id})
+        await connection('tb_users').where('id', id).delete({id});
 
-        response.json("Excluido")
+        response.json("Excluido");
         
+    },
+
+    /*--------------------------------------------------*/
+
+    async aproved(request, response){
+
+        const {id} = request.params;
+
+        await connection('tb_users').update('aproved',1).where('id',id);
+
+        response.json('Aprovado');
+
+    },
+
+    /*--------------------------------------------------*/
+
+    async resetPass(request, response){
+
+        const {id} = request.params;
+
+        await connection('tb_users').update('pass',Math.random().toString(36).slice(-10)).where('id',id);
+
+        response.json('Senha atualizada');
+
     }
 }

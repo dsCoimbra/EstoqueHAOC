@@ -1,7 +1,8 @@
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { Component, OnInit } from '@angular/core';
 import { Observable, interval, Subject, empty } from 'rxjs';
 import { Location } from '@angular/common';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 import { User } from './users.model';
@@ -33,7 +34,10 @@ export class UsersComponent implements OnInit {
   queryField = new FormControl();
 
   constructor(private usersService: UsersService,
-              private alertService: AlertModalService) { }
+              private alertService: AlertModalService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private modal: AlertModalService) { }
 
   ngOnInit(): void {
     this.queryField.valueChanges
@@ -53,11 +57,33 @@ export class UsersComponent implements OnInit {
   }
 
   aproved(id: string): any{
-
+    this.usersService.aprovedUser(id).subscribe(
+      success => {
+        this.modal.showAlertSuccess({ message: 'Usuário aprovado', time: 1500});
+        this.router.navigate(['admin/users']);
+        this.usersService.users('')
+          .pipe(
+            debounceTime(200),
+          )
+          .subscribe((users: any) => this.users = users);
+      },
+      error => {
+        this.modal.showAlertDanger('Servidor indisponivel no momento, favor tentar mais tarde.', 2000);
+      }
+    )
   }
 
   notAproved(id: string): any{
-
+    this.usersService.deleteUser(id).subscribe(
+      success => {
+        this.modal.showAlertSuccess({message: 'Usuário não aprovado e excluido da relação', time: 2000});
+        this.router.navigate(['admin/users']);
+        this.usersService.users('').subscribe((users: any) => this.users = users);
+      },
+      error => {
+        this.modal.showAlertDanger('Servidor indisponivel no momento, favor tentar mais tarde.', 2000);
+      }
+    )
   }
 
 }

@@ -29,10 +29,11 @@
           </thead>
           <tbody>
             <tr *ngFor='let users of users | paginate: {itemsPerPage: contador, currentPage: pag}'>
-              <td><a href="./admin/user/{{users.id}}">{{users.name}}</a></td>
+              <td *ngIf="users.aproved == 1"><a href="./admin/user/{{users.id}}">{{users.name}}</a></td>
+              <td *ngIf="users.aproved == 0">{{users.name}}</td>
               <td>{{users.email}}</td>
-              <td>{{users.typeUser}}</td>
-              <td *ngIf="users.aproved == 0"><button class="btn btn-success mr-md-3" (onClick)="aproved(users.id)">Aprovar</button> <button class="btn btn-danger" (onClick)="notAproved(users.id)">Não Aprovar</button></td>
+              <td>{{users.typesUser}}</td>
+              <td *ngIf="users.aproved == 0"><button class="btn btn-success mr-md-3" (click)="aproved(users.id)">Aprovar</button> <button class="btn btn-danger" (click)="notAproved(users.id)">Não Aprovar</button></td>
               <td *ngIf="users.aproved == 1">Aprovado</td>
             </tr>
             <tr *ngIf="users?.length === 0" >

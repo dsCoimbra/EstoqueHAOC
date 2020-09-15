@@ -33,4 +33,12 @@ export class UsersService {
     return this.http.delete(`${this.API}user/${id}`);
   }
 
+  aprovedUser(id: string): any{
+    return this.http.put(`${this.API}user/aproved/${id}`, null);
+  }
+
+  resetPassUser(id: string): any{
+    return this.http.put(`${this.API}user/resetPass/${id}`, null);
+  }
+
 }

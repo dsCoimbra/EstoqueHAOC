@@ -15,6 +15,8 @@ export class CreateUsersComponent implements OnInit {
 
   userForm: FormGroup;
 
+  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
   constructor(private location: Location,
               private fb: FormBuilder,
               private usersService: UsersService,
@@ -24,7 +26,7 @@ export class CreateUsersComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = this.fb.group({
       name: [null, [Validators.required, Validators.minLength(3)]],
-      email: [null, [Validators.required, Validators.minLength(3)]],
+      email: [null, [Validators.required, Validators.minLength(3), Validators.pattern(this.emailPattern)]],
       typeUser: [0, [Validators.required]]
     });
   }
@@ -44,7 +46,7 @@ export class CreateUsersComponent implements OnInit {
           this.modal.showAlertDanger('Servidor indisponivel no momento, favor tentar mais tarde.', 2000);
         }
         if (error.status === 304) {
-          this.modal.showAlertDanger('Setor já existe', 2000);
+          this.modal.showAlertDanger('Usuário já existe', 2000);
         }
       },
       () => console.log('request completo')

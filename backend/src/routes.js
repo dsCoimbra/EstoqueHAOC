@@ -48,6 +48,8 @@ routes.get('/user/:id', UserController.user)
 routes.post('/user', UserController.create)
 routes.put('/user/:id', UserController.edit)
 routes.delete('/user/:id', UserController.delete)
+routes.put('/user/aproved/:id', UserController.aproved)
+routes.put('/user/resetPass/:id', UserController.resetPass)
 
 //Equipments
 routes.get('/equipments/:search?', EquipmentController.index)

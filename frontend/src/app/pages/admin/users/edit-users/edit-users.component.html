@@ -1,1 +1,55 @@
-<p>edit-users works!</p>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+      Novo Usuário
+  </h1>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+
+  <form [formGroup]="userForm" novalidate>
+      <div class="box" *ngFor="let users of users">
+          <div class="box-header with-border">
+              <h3 class="box-title">Usuário</h3>
+              <a (click)="onCancel()" class="btn btn-outline-dark btn-xs pull-right">Cancelar</a>
+              <a (click)="onDelete()" class="btn btn-outline-danger btn-xs pull-right mr-md-3">Deletar</a>
+              <a (click)="resetPass(users.id)" class="btn btn-outline-warning btn-xs pull-right mr-md-3">Resetar senha</a>
+              <button type="submit" class="btn btn-outline-info btn-xs pull-right mr-md-3" [disabled]="!userForm.valid" (click)="onUpdate()">Salvar</button>
+          </div>
+          <div class="box-body">
+              <div class="col-md-12">
+                  <app-input label="Nome" classLabel="col-md-3" classInput="col-md-9">
+                      <input class="form-control" style="width:80%" type="text" formControlName="name" [ngModel]='users.name'>
+                  </app-input>
+                  <app-input label="E-mail" classLabel="col-md-3" classInput="col-md-9">
+                    <input class="form-control" style="width:80%" type="text" formControlName="email" [ngModel]='users.email'>
+                  </app-input>
+                  <app-input label="Tipos de serviços" classLabel="col-md-3" classInput="col-md-9">
+                    <select class="form-control" style="width:80%" formControlName="typeUser">
+                      <option value=0>-- Selecione --</option>
+                      <option value=1 [selected]="users.typeUser === '1'">Administrador</option>
+                      <option value=2 [selected]="users.typeUser === '2'">Comum</option>
+                    </select>
+                  </app-input>
+              </div>
+          </div>
+      </div>
+  </form>
+  <ng-template #deleteModal>
+    <div class="modal-body text-center">
+      <p>Deseja mesmo deletar esse usuário?</p>
+      <button class="btn btn-info mr-md-3" (click)="confirm()">Sim</button>
+      <button class="btn btn-dark" (click)='decline()'>Não</button>
+    </div>
+  </ng-template>
+
+  <ng-template #resetPassModal>
+    <div class="modal-body text-center">
+      <p>Deseja fazer o reset da senha desse usuário?</p>
+      <button class="btn btn-info mr-md-3" (click)="confirmReset()">Sim</button>
+      <button class="btn btn-dark" (click)='decline()'>Não</button>
+    </div>
+  </ng-template>
+</section>
+
+
