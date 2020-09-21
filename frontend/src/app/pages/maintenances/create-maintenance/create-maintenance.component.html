@@ -68,6 +68,13 @@
                     </app-input>
                 </div>
                 <div class="col-md-12">
+                    <app-input label="Setor" classLabel="col-md-12" classInput="col-md-12" styleConfig="margin-top: 40px">
+                      <select class="form-control" style="width:80%" formControlName="sector">
+                        <option [ngValue]=0>-- Selecione --</option>
+                      </select>
+                    </app-input>
+                </div>
+                <div class="col-md-12">
                     <app-input label="Algum equipamento foi emprestado?" classInput="col-md-2" styleConfig="margin-top: 0px;" classLabel="col-md-3">
                         <input type="radio" name="loanEquipament" #loanEquipament ngModel value=1 > Sim
                         <input type="radio" name="loanEquipament" #loanEquipament ngModel value=2 > Não

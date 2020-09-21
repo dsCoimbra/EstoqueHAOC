@@ -44,6 +44,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from './shared/shared.module';
 import { SectorsService } from './pages/admin/sectors/sectors.service';
 import { ProvidersService } from './pages/admin/providers/providers.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login/login.component';
+import { RegisterComponent } from './login/register/register.component';
+import { TesteComponent } from './login/teste/teste.component';
 
 @NgModule({
   declarations: [
@@ -76,10 +80,14 @@ import { ProvidersService } from './pages/admin/providers/providers.service';
     ProvidersComponent,
     CreateProviderComponent,
     EditProviderComponent,
-    InputComponent
+    InputComponent,
+    LoginComponent,
+    RegisterComponent,
+    TesteComponent
   ],
   imports: [
     BrowserModule,
+    // tslint:disable-next-line: deprecation
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES, {onSameUrlNavigation: 'reload'}),
@@ -87,7 +95,8 @@ import { ProvidersService } from './pages/admin/providers/providers.service';
     ReactiveFormsModule,
     NgxPaginationModule,
     ModalModule.forRoot(),
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [
     CategoriesService,

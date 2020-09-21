@@ -1,0 +1,55 @@
+body {
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.login {
+  width: 100%;
+  height: 100vh;
+  background-color: black;
+  background-image: linear-gradient(to bottom,#99e0f2 70%, #072d4a 30%);
+
+  display: flex;
+  align-items: center;
+}
+
+.conteudo{
+  width: 100%;
+  max-width: 330px;
+  margin: auto;
+}
+
+.logo {
+  width: 600px;
+  display: flex;
+  align-items: center;
+
+  margin-top: -100px;
+  margin-bottom: 30px;
+}
+
+.logo img{
+    max-width:400px;
+    max-height:350px;
+    width: 110px;
+    height: 110px;
+    margin-left: 19%;
+}
+
+
+

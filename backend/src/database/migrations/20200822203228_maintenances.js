@@ -3,6 +3,7 @@ exports.up = function(knex) {
     return knex.schema.createTable('tb_maintenances', function (table){
         table.increments('id').primary();
         table.integer('idProvider').unsigned();
+        table.integer('idSector').unsigned();
         table.string('internalRequest', 10);
         table.string('externalRequest');
         table.datetime('date');
@@ -11,8 +12,9 @@ exports.up = function(knex) {
         table.string('equipment');
         table.string('heritage', 10);
         table.string('serialNumber');
-        table.string('email');
-        table.foreign('idProvider').references('tb_providers.id')
+        table.string('model');
+        table.foreign('idProvider').references('tb_providers.id');
+        table.foreign('idSector').references('tb_sectors.id')
     })
 };
 
