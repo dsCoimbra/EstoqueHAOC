@@ -49,7 +49,7 @@ module.exports =  {
 
         if(value['count(*)'] > 0){
 
-            return response.status(304).send('Categoria já existe')
+            return response.status(304).send('Usuário já existe')
 
         }else{
 

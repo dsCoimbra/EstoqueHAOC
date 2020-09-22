@@ -1,7 +1,9 @@
+import { AuthGuard } from './shared/auth.guard';
+import { RegisterComponent } from './login/register/register.component';
 import { LoginComponent } from './login/login/login.component';
 import { EditUsersComponent } from './pages/admin/users/edit-users/edit-users.component';
 import { EditSectorComponent } from './pages/admin/sectors/edit-sector/edit-sector.component';
-import {Routes} from '@angular/router';
+import { Routes, CanActivate } from '@angular/router';
 
 import { ListEquipmentsComponent } from './pages/stock/equipments/list-equipments/list-equipments.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -25,9 +27,7 @@ import { EditProviderComponent } from './pages/admin/providers/edit-provider/edi
 
 export const ROUTES: Routes = [
 
-    {path: 'login', component: LoginComponent}
-
-    /*{path: '', component: HomeComponent},
+  {path: '', component: HomeComponent, children: [
     {path: 'stock', component: StockComponent, runGuardsAndResolvers: 'always'},
     // Maintenances
     {path: 'maintenances', component: MaintenancesComponent},
@@ -59,5 +59,13 @@ export const ROUTES: Routes = [
     // Admin - Providers
     {path: 'admin/providers', component: ProvidersComponent},
     {path: 'admin/provider/new', component: CreateProviderComponent},
-    {path: 'admin/provider/:id', component: EditProviderComponent}*/
-]
+    {path: 'admin/provider/:id', component: EditProviderComponent}
+  ],
+  canActivate: [AuthGuard]
+},
+  {path: '', component: LoginComponent, children: [
+    {path: '', redirectTo: 'login', pathMatch: 'full'},
+    {path: 'login', component: LoginComponent},
+    {path: 'register', component: RegisterComponent}
+  ]}
+];

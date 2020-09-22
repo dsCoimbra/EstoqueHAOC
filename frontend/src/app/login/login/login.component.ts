@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AccountService } from './../../shared/account.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  login = {
+    email: '',
+    password: ''
+  };
+
+  constructor(private accountService: AccountService,
+              private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  // tslint:disable-next-line: typedef
+  async onSubmit() {
+    try{
+      const result = await this.accountService.login(this.login);
+      console.log(`Login efetuado: ${result}`);
+
+      this.router.navigate(['']);
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 }
