@@ -1,3 +1,4 @@
+import { TesteComponent } from './login/teste/teste.component';
 import { AuthGuard } from './shared/auth.guard';
 import { RegisterComponent } from './login/register/register.component';
 import { LoginComponent } from './login/login/login.component';
@@ -63,7 +64,7 @@ export const ROUTES: Routes = [
   ],
   canActivate: [AuthGuard]
 },
-  {path: '', component: LoginComponent, children: [
+  {path: '', component: TesteComponent, children: [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent}

@@ -1,17 +1,17 @@
 <body>
     <div class="login text-center">
       <div class="col-xs-12 conteudo">
-        <form class="test" (ngSubmit)="onSubmit()" #form="ngForm">
+        <form class="test" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
         <div class="logo">
           <img class="mb-2 logo" src="../../../assets/img/logo-mini.png">
         </div>
           <h2>Estoque <b>HAOC</b></h2>
           <div class="row">
 
-            <input type="text" class="form-control" placeholder="E-mail">
-            <input type="password" class="form-control" placeholder="Senha">
+            <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
+            <input type="password" class="form-control" placeholder="Senha" formControlName='pass'>
 
-            <button type="submit" class="btn btn-light btn-lg">Entrar</button>
+            <button type="submit" (click)="onSubmit()" class="btn btn-light btn-lg">Entrar</button>
             <button type="button" [routerLink]="['/register']" class="btn btn-info btn-lg">Cadastrar</button>
 
             <a href="#" class="mt-2">Esqueceu a senha?</a>

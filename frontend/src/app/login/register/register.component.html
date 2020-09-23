@@ -1,19 +1,19 @@
 <body>
   <div class="login text-center">
     <div class="col-xs-12 conteudo">
-      <form class="test">
+      <form class="test" [formGroup]="formRegister" novalidate>
       <div class="logo">
         <img class="mb-2 logo" src="../../../assets/img/logo-mini.png">
       </div>
         <h2>Estoque <b>HAOC</b></h2>
         <div class="row">
 
-          <input type="text" class="form-control" placeholder="Nome">
-          <input type="text" class="form-control" placeholder="E-mail">
-          <input type="password" class="form-control" placeholder="Senha">
-          <input type="password" class="form-control" placeholder="Confirmar Senha">
+          <input type="text" class="form-control" placeholder="Nome" formControlName="name">
+          <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
+          <input type="password" class="form-control" placeholder="Senha" formControlName="pass">
+          <input type="password" class="form-control" placeholder="Confirmar Senha" formControlName="confirmPass">
 
-          <button type="submit" class="btn btn-light btn-lg">Cadastrar</button>
+          <button type="submit" class="btn btn-light btn-lg" (click)="onSubmit()" [disabled]="!formRegister.valid">Cadastrar</button>
 
           <a href="/login" class="mt-2">Cancelar</a>
       </div>
