@@ -11,7 +11,7 @@
             <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
             <input type="password" class="form-control" placeholder="Senha" formControlName='pass'>
 
-            <button type="submit" (click)="onSubmit()" class="btn btn-light btn-lg">Entrar</button>
+            <button type="submit" (click)="onSubmit()" class="btn btn-light btn-lg" [disabled]="!loginForm.valid">Entrar</button>
             <button type="button" [routerLink]="['/register']" class="btn btn-info btn-lg">Cadastrar</button>
 
             <a href="#" class="mt-2">Esqueceu a senha?</a>

@@ -4,7 +4,7 @@ import { AlertModalComponent } from './../../shared/alert-modal/alert-modal.comp
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from './../login.service';
-import { Login } from './../login.model';
+import { Login, Token } from './../login.model';
 import { Router } from '@angular/router';
 import { AccountService } from './../../shared/account.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +17,8 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
 
   user: Login;
+
+  token: Token;
 
   loginForm: FormGroup;
 
@@ -38,17 +40,10 @@ export class LoginComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   onSubmit(): void {
-
-
-    /*this.user = this.loginService.login(this.loginForm).subscribe(
-      users => this.user = users,
-      success => {
-        console.log(JSON.stringify(this.user.token));
-        window.localStorage.setItem('token', this.user.token);
-        this.modal.showAlertSuccess({ message: 'Usuário criado com sucesso', time: 1500 });
-        this.router.navigate(['']);
-      }
-    )*/
+    this.token = this.loginService.login(this.loginForm).subscribe(
+      token => this.token = token
+    );
+    console.log(this.token);
   }
 
 }
