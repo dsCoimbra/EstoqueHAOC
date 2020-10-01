@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../shared/auth.guard';
 import { HttpClient } from '@angular/common/http';
 import { AlertModalService } from './../../shared/alert-modal.service';
 import { AlertModalComponent } from './../../shared/alert-modal/alert-modal.component';
@@ -8,6 +9,9 @@ import { Login, Token } from './../login.model';
 import { Router } from '@angular/router';
 import { AccountService } from './../../shared/account.service';
 import { Component, OnInit } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { Observable } from 'rx';
+import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +24,10 @@ export class LoginComponent implements OnInit {
 
   token: Token;
 
+  tokens: {};
+
+  token$: Observable<Token>;
+
   loginForm: FormGroup;
 
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -29,7 +37,8 @@ export class LoginComponent implements OnInit {
               private modal: AlertModalService,
               private router: Router,
               private loginService: LoginService,
-              private http: HttpClient) { }
+              private http: HttpClient,
+              private auth: AuthGuard) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -38,12 +47,23 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line: typedef
   onSubmit(): void {
-    this.token = this.loginService.login(this.loginForm).subscribe(
-      token => this.token = token
-    );
-    console.log(this.token);
+    this.token = this.loginService.login(this.loginForm.value)
+                    .then(
+                      res => window.localStorage.setItem('token', res)
+                    )
+                    .catch(
+                      erro => {
+                        if (erro.status === 305){
+                          this.modal.showAlertDanger('Senha incorreta', 2000);
+                          this.router.navigate(['/login']);
+                        }
+                        if (erro.status === 304){
+                          this.modal.showAlertDanger('Usuário não existe', 2000);
+                          this.router.navigate(['/login']);
+                        }
+                    });
+
   }
 
 }
